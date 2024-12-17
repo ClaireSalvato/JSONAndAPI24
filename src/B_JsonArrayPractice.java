@@ -22,13 +22,22 @@ public class B_JsonArrayPractice {
         System.out.println("HEIGHT: " + height);
 
         // get a json array out of the json
+
         JSONArray filmsArray = (JSONArray) json.get("films");
         int n = filmsArray.size();
-        System.out.println("FILMS: ");
+        System.out.println("Starships: ");
         for (int i = 0; i < n; i++) {
             String film = (String) filmsArray.get(i);
             System.out.println(film);
-        }
 
-    } // end of constructor
+            JSONArray starshipsArray = (JSONArray) json.get("starships");
+            int o = starshipsArray.size();
+            System.out.println("Starships: ");
+            for (int x = 0; x < o; x++) {
+                String starships = (String) starshipsArray.get(x);
+                System.out.println(starships);
+            }
+
+        } // end of constructor
+    }
 }

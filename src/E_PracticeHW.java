@@ -10,22 +10,22 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class D_ReadATLA {
+public class E_PracticeHW {
 
     public static void main(String[] args) throws ParseException {
-        D_ReadATLA atla = new D_ReadATLA();
+        E_PracticeHW pokemon = new E_PracticeHW();
     }
 
-    public D_ReadATLA() throws ParseException {
+    public E_PracticeHW() throws ParseException {
         pull();
     }
 
     public void pull() throws ParseException {
         String output = "";
-        String jsonString = "";
+        String jsonString="";
         try {
 
-            URL url = new URL("https://last-airbender-api.fly.dev/api/v1/characters"); /** Your API's URL goes here */
+            URL url = new URL("https://pokeapi.co/api/v2/pokemon/pikachu/"); /** Your API's URL goes here */
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
@@ -57,35 +57,30 @@ public class D_ReadATLA {
 
         // turn your string into a JSON object using a parser
         JSONParser parser = new JSONParser();
-        JSONArray jsonArray = (JSONArray) parser.parse(jsonString);
-        System.out.println("JSON ARRAY: " + jsonArray);
+        JSONObject pikachu = (JSONObject) parser.parse(jsonString);
+        System.out.println("Pikachu's JSON: " + pikachu);
 
-        JSONObject character = (JSONObject) jsonArray.get(0); // 0 index is the first character
+        /* TODO : print out the name of each ability that Pikachu has */
+        // feel free to paste this URL into your browser to explore the JSON: https://pokeapi.co/api/v2/pokemon/pikachu/
 
-
-        JSONObject character = (JSONObject) jsonArray.get(0);
-        JSONArray allies = (JSONArray) character.get(allies);
-        for(int i = 0; i < allies.size(); i++){
-            String ally = (String) allies.get(i);
-            
-
-
+        JSONArray abilities = (JSONArray) pikachu.get("abilities");
+        System.out.println("ABILITIES"+abilities);
+        for(int x = 0; x < abilities.size();x++){
+            JSONObject ability = (JSONObject) abilities.get(x);
+            System.out.println("ABILITY" + x + ":" + ability);
+            JSONObject power = (JSONObject) ability.get("ability");
+            String name = (String) ability.get("name");
+            System.out.println("NAME" + name);
         }
-        //System.out.println(jsonObject);
-       // String name = (String) jsonObject.get("name");
-        System.out.println(name);
-
-
-            /* TODO : print the allies of the first character in the JSON */
-            // here is a line to get you started:
-            JSONObject character = (JSONObject) jsonArray.get(0); // 0 index is the first character
-
-            /* TODO : print the "name" of every character in the jsonArray */
-
-
-
-
+        JSONArray items = (JSONArray) pikachu.get("items");
+        for(int i = 0; i < items.size(); i++){
+            JSONObject item = (JSONObject) items.get(i);
+            System.out.println("ITEM" + i + ":" + item);
+            String name = (String) item.get("name");
+            System.out.println("NAME" + name);
         }
 
     }
+}
+
 
